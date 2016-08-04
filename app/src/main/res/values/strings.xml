@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Ma bibliotheque</string>
+    <string name="title_activity_book_registration">BookRegistration</string>
+    <string name="main_button_chain">Nouveau Livre</string>
+    <string name="Book_Name">Titre du Livre</string>
+    <string name="Writing_Book_Name">Ecrire le titre du livre</string>
+    <string name="Author_Name">Nom de l\'auteur</string>
+    <string name="Writing_Author_Name">Nom de l\'auteur</string>
+    <string name="Writing_Author_First_Name">Prénom de l\'auteur</string>
+    <string name="Published_Year">Année de publication</string>
+    <string name="Writing_Date">Année</string>
+    <string name="Home_Edition">Maison d\'édition</string>
+    <string name="Writing_Home_Edition">Nom de la maison d\'édition</string>
+    <string name="Page_Number">Nombre de pages</string>
+    <string name="Writing_Page_Number">Pages</string>
+    <string name="Genre">Genre</string>
+    <string name="spinnerGenre">Genre</string>
+    <string name="Summary">Résumé</string>
+    <string name="Writing_The_Summary">Ecrire le résumé</string>
+    <string name="Your_Opinion">Avis</string>
+    <string name="Writing_Your_Opinion">Ecrire son avis</string>
+</resources>

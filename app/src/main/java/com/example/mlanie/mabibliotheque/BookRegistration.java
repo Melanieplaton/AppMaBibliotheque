@@ -1,0 +1,73 @@
+package com.example.mlanie.mabibliotheque;
+
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
+import android.widget.Spinner;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.layout.simple_spinner_item;
+
+public class BookRegistration extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_book_registration);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        EditText titreFromUser = (EditText)findViewById(R.id.Writing_Book_Name);
+        EditText nomAuteurFromUser = (EditText)findViewById(R.id.Writing_Author_Name);
+        EditText annéePublicationFromUser = (EditText)findViewById(R.id.Writing_Date);
+
+        String titreAEnregistrer = titreFromUser.getText().toString();
+        String nomAuteurAEnregistrer = nomAuteurFromUser.getText().toString();
+        String AnneePublicationAEnregistrer = annéePublicationFromUser.getText().toString();
+
+        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, Integer.valueOf(nomAuteurAEnregistrer));
+
+        LivresBDD livresBDD = new LivresBDD(this);
+        livresBDD.open();
+        livresBDD.insertLivre(book);
+
+
+
+
+
+
+
+//Bouton préinstallé
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+//Création des actions du spinner
+        String[] arraySpinner;
+        setContentView(R.layout.content_book_registration);
+        arraySpinner = new String[] {
+                "Policier", "Thriller", "SF", "Fantasy", "Romance", "Historique", "BD", "Manga"
+        };
+        Spinner s = (Spinner) findViewById(R.id.spinnerGenre);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                simple_spinner_item, arraySpinner);
+        s.setAdapter(adapter);
+    }
+
+
+}
+
+

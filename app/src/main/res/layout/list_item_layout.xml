@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Book_Name"
-        android:id="@+id/textView"
+        android:id="@+id/liste_titre"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -17,13 +17,13 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:id="@+id/textView2"/>
+        android:layout_below="@+id/liste_titre"
+        android:id="@+id/liste_nom"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:id="@+id/textView3"/>
+        android:layout_below="@+id/liste_nom"
+        android:id="@+id/liste_annee"/>
 
 
 </RelativeLayout>

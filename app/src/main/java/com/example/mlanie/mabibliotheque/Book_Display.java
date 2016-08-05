@@ -3,16 +3,10 @@ package com.example.mlanie.mabibliotheque;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.util.ArrayList;
 
 public class Book_Display extends AppCompatActivity {
 
@@ -24,9 +18,9 @@ public class Book_Display extends AppCompatActivity {
 
         int listPosition= getIntent().getExtras().getInt("BookId");
 
-        TextView titre = (TextView) findViewById(R.id.textView);
-        TextView nomAuteur = (TextView) findViewById(R.id.textView2);
-        TextView anneeParution = (TextView) findViewById(R.id.textView3);
+        TextView titre = (TextView) findViewById(R.id.display_titre);
+        TextView nomAuteur = (TextView) findViewById(R.id.display_nom);
+        TextView anneeParution = (TextView) findViewById(R.id.display_annee);
 
         try{
             LivresBDD maBaseHelper = new LivresBDD(this);
@@ -46,10 +40,6 @@ public class Book_Display extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
             toast.show();
         }
-
-
-
-
 
     }
 

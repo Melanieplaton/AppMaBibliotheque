@@ -30,8 +30,8 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         //On créé la table à partir de la requête écrite dans la variable CREATE_BDD
         sqLiteDatabase.execSQL(CREATE_BDD);
 
-
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {

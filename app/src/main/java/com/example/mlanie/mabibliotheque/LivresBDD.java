@@ -61,7 +61,6 @@ public class LivresBDD extends MaBaseSQLite {
     }
 
 
-
     public static String getColonneId() {
         return COLONNE_ID;
     }

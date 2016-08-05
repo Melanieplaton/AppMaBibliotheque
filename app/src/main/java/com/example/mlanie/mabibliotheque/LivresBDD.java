@@ -13,7 +13,7 @@ public class LivresBDD extends MaBaseSQLite {
     private static final String NOM_BDD = "mabibliotheque.db";
 
     private static final String TABLE_LIVRE = "table_livre";
-    private static final String COLONNE_ID = "ID";
+    private static final String COLONNE_ID = "_id";
     private static final String COLONNE_Titre = "Titre";
     private static final String COLONNE_NOM = "Nom_Auteur";
     private static final String COLONNE_ANNEE = "Annee_Publication";
@@ -57,7 +57,7 @@ public class LivresBDD extends MaBaseSQLite {
     }
 
     public int removeLivreWithId (int id){
-        return bdd.delete(TABLE_LIVRE, COLONNE_ID + " = "+id, null);
+        return bdd.delete(TABLE_LIVRE, COLONNE_ID + " = " +id, null);
     }
 
 
@@ -101,4 +101,5 @@ public class LivresBDD extends MaBaseSQLite {
     public static int getVersionBdd() {
         return VERSION_BDD;
     }
+
 }

@@ -27,13 +27,21 @@ public class BookRegistration extends AppCompatActivity {
 
         EditText titreFromUser = (EditText)findViewById(R.id.Writing_Book_Name);
         EditText nomAuteurFromUser = (EditText)findViewById(R.id.Writing_Author_Name);
-        EditText annéePublicationFromUser = (EditText)findViewById(R.id.Writing_Date);
+        EditText anneePublicationFromUser = (EditText)findViewById(R.id.Writing_Date);
 
         String titreAEnregistrer = titreFromUser.getText().toString();
         String nomAuteurAEnregistrer = nomAuteurFromUser.getText().toString();
-        String AnneePublicationAEnregistrer = annéePublicationFromUser.getText().toString();
+        String anneePublicationAEnregistrer = anneePublicationFromUser.getText().toString();
 
-        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, Integer.valueOf(nomAuteurAEnregistrer));
+        int annee;
+        if (anneePublicationAEnregistrer.equals("")){
+            annee = 1985;
+        }else{
+            annee = Integer.valueOf(anneePublicationAEnregistrer);
+        }
+
+
+        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee);
 
         LivresBDD livresBDD = new LivresBDD(this);
         livresBDD.open();
@@ -50,8 +58,8 @@ public class BookRegistration extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Snackbar.make(view, "Enregistrer", Snackbar.LENGTH_LONG)
+                        .setAction("Enregistrer", null).show();
             }
         });
 

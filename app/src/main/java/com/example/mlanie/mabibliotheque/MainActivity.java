@@ -36,13 +36,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             LivresBDD maBaseHelper = new LivresBDD(this);
             maBaseSQLite = maBaseHelper.getReadableDatabase();
             cursor = maBaseSQLite.query(LivresBDD.getTableLivre(),
-                    new String [] {LivresBDD.getColonneId(), LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom()},
+                    new String [] {LivresBDD.getColonneId(), LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom(), LivresBDD.getColonneAnnee()},
                     null, null, null, null, null);
 
 
             CursorAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.list_item_layout,cursor,
                     new String [] {LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom(), LivresBDD.getColonneAnnee()},
-                    new int [] {R.id.liste_titre,R.id.liste_nom,R.id.liste_annee}, 0);
+                    new int [] {R.id.liste_titre, R.id.liste_nom, R.id.liste_annee}, 0);
 
 
             liste.setAdapter(listAdapter);

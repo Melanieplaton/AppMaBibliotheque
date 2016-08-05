@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="false"
-        android:id="@+id/scrollView"></ScrollView>
+        android:id="@+id/scrollView">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -203,7 +203,7 @@
             android:layout_alignEnd="@string/Writing_Book_Name" />
 
 
-    </RelativeLayout>
-
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

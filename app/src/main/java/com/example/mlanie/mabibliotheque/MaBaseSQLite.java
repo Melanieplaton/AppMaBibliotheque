@@ -11,13 +11,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MaBaseSQLite extends SQLiteOpenHelper {
 
     private static final String TABLE_LIVRE = "table_livre";
-    private static final String COLONNE_ID = "ID";
+    private static final String COLONNE_ID = "_id";
     private static final String COLONNE_Titre = "Titre";
     private static final String COLONNE_NOM = "Nom_Auteur";
     private static final String COLONNE_ANNEE = "Annee_Publication";
 
-    private static final String CREATE_BDD = "CREATE TABLE"+ TABLE_LIVRE+"("+COLONNE_ID+"INTEGER PRIMARY KEY AUTOINCREMENT,"
-            + COLONNE_Titre+"TEXT NOT NULL,"+COLONNE_NOM+"TEXT NOT NULL,"+ COLONNE_ANNEE+"INT);";
+    private static final String CREATE_BDD = "CREATE TABLE "+ TABLE_LIVRE+" ( "+COLONNE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+            + COLONNE_Titre+" TEXT NOT NULL, "+COLONNE_NOM+" TEXT NOT NULL, "+ COLONNE_ANNEE+" INTEGER); ";
 
     public MaBaseSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

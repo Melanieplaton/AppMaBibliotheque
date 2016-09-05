@@ -1,7 +1,5 @@
 package com.example.mlanie.mabibliotheque;
 
-import android.os.Parcelable;
-
 /**
  * Created by Mélanie on 03/08/2016.
  */
@@ -12,6 +10,8 @@ public class Book {
     private int bookId;
 
     public final String bookIdentifier = "BOOK_ID";
+
+    public Book(){}
 
     public Book(String bookTitle, String authorName, int publishedYear) {
         this.bookTitle = bookTitle;

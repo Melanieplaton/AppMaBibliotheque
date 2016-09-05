@@ -1,14 +1,13 @@
-package com.example.mlanie.mabibliotheque;
+/*package com.example.mlanie.mabibliotheque;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 /**
  * Created by Mélanie on 04/08/2016.
  */
-public class LivresBDD extends MaBaseSQLite {
+/*public class LivresBDD extends MaBaseSQLite {
     private static final int VERSION_BDD = 1;
     private static final String NOM_BDD = "mabibliotheque.db";
 
@@ -25,6 +24,8 @@ public class LivresBDD extends MaBaseSQLite {
     public LivresBDD (Context context){
         super(context,NOM_BDD, null, VERSION_BDD);
         maBaseSQLite = new MaBaseSQLite(context, NOM_BDD, null, VERSION_BDD);
+        Book book1 = new Book("titre1","auteur1", 2016);
+        insertLivre(book1);
     }
 
     public void open(){
@@ -101,4 +102,4 @@ public class LivresBDD extends MaBaseSQLite {
         return VERSION_BDD;
     }
 
-}
+}*/

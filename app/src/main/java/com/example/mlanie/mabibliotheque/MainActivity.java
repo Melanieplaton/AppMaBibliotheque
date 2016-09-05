@@ -19,8 +19,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     //Bundle bundle;
     //String maValeur;
     //public ArrayList<Book> bookList = new ArrayList<Book>();
+
     private Cursor cursor;
-    private SQLiteDatabase maBaseSQLite;
+    private SQLiteDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,19 +34,20 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         //this.bundle = savedInstanceState;
 
         try{
-            LivresBDD maBaseHelper = new LivresBDD(this);
-            maBaseSQLite = maBaseHelper.getReadableDatabase();
-            cursor = maBaseSQLite.query(LivresBDD.getTableLivre(),
-                    new String [] {LivresBDD.getColonneId(), LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom(), LivresBDD.getColonneAnnee()},
+            MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
+            db = maBaseHelper.getWritableDatabase();
+            cursor = db.query(MaBaseSQLite.getTableLivre(),
+                    new String [] {MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
                     null, null, null, null, null);
 
 
             CursorAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.list_item_layout,cursor,
-                    new String [] {LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom(), LivresBDD.getColonneAnnee()},
+                    new String [] {MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
                     new int [] {R.id.liste_titre, R.id.liste_nom, R.id.liste_annee}, 0);
 
 
             liste.setAdapter(listAdapter);
+            onDestroy();
 
 
 
@@ -67,19 +69,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     protected void onDestroy() {
         super.onDestroy();
         cursor.close();
-        maBaseSQLite.close();
+        db.close();
     }
 
-    /*@Override
-    protected void onPause() {
-        super.onPause();
-        bundle.putString("key", maValeur);
-    }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }*/
 
     public void ChangerDePagePourCreerUneFicheDeLivre (View button){
         Intent CreateNewBook = new Intent(this, BookRegistration.class);

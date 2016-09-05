@@ -16,11 +16,11 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
     private static final String COLONNE_NOM = "Nom_Auteur";
     private static final String COLONNE_ANNEE = "Annee_Publication";
 
-    private static final String CREATE_BDD = "CREATE TABLE "+ TABLE_LIVRE+" ( "+COLONNE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-            + COLONNE_Titre+" TEXT NOT NULL, "+COLONNE_NOM+" TEXT NOT NULL, "+ COLONNE_ANNEE+" INTEGER); ";
+    private static final String CREATE_BDD = "CREATE TABLE "+ TABLE_LIVRE+" ( "+COLONNE_ID+" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+ COLONNE_Titre+" TEXT NOT NULL, "+COLONNE_NOM+" TEXT NOT NULL, "+ COLONNE_ANNEE+" INTEGER); ";
 
     public MaBaseSQLite(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
+
     }
 
 
@@ -39,4 +39,6 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         onCreate(sqLiteDatabase);
 
     }
+
+
 }

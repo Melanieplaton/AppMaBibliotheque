@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,29 +27,6 @@ public class BookRegistration extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*EditText titreFromUser = (EditText) findViewById(R.id.Writing_Book_Name);
-        EditText nomAuteurFromUser = (EditText) findViewById(R.id.Writing_Author_Name);
-        EditText anneePublicationFromUser = (EditText) findViewById(R.id.Writing_Date);
-
-        String titreAEnregistrer = titreFromUser.getText().toString();
-        String nomAuteurAEnregistrer = nomAuteurFromUser.getText().toString();
-        String anneePublicationAEnregistrer = anneePublicationFromUser.getText().toString();
-
-        int annee;
-        if (anneePublicationAEnregistrer.equals("")) {
-            annee = 1985;
-        } else {
-            annee = Integer.valueOf(anneePublicationAEnregistrer);
-        }
-
-
-        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee);
-
-        LivresBDD livresBDD = new LivresBDD(this);
-        livresBDD.open();
-        livresBDD.insertLivre(book);*/
-
-
 //Création des actions du spinner
         String[] arraySpinner;
         setContentView(R.layout.content_book_registration);
@@ -63,6 +41,16 @@ public class BookRegistration extends AppCompatActivity {
     }
 
     public void saveTheBook (View Button){
+        Book book = new Book("","",1);
+        dataOfBook(book);
+        saveNewBookInBDD(book);
+
+        Intent returnList = new Intent (this, MainActivity.class);
+        this.startActivity(returnList);
+
+    }
+
+    public Book dataOfBook (Book book) {
         EditText titreFromUser = (EditText) findViewById(R.id.Writing_Book_Name);
         EditText nomAuteurFromUser = (EditText) findViewById(R.id.Writing_Author_Name);
         EditText anneePublicationFromUser = (EditText) findViewById(R.id.Writing_Date);
@@ -78,16 +66,15 @@ public class BookRegistration extends AppCompatActivity {
             annee = Integer.valueOf(anneePublicationAEnregistrer);
         }
 
+        book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee);
+        return book;
+    }
 
-        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee);
-
+    public void saveNewBookInBDD (Book book){
         LivresBDD livresBDD = new LivresBDD(this);
         livresBDD.open();
         livresBDD.insertLivre(book);
         livresBDD.close();
-
-        Intent returnList = new Intent (this, MainActivity.class);
-        this.startActivity(returnList);
 
     }
 

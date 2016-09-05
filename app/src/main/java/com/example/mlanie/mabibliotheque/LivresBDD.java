@@ -25,6 +25,11 @@ public class LivresBDD extends MaBaseSQLite {
     public LivresBDD (Context context){
         super(context,NOM_BDD, null, VERSION_BDD);
         maBaseSQLite = new MaBaseSQLite(context, NOM_BDD, null, VERSION_BDD);
+        Book book = new Book ("Minion", "Moi", 1996);
+        open();
+        long var = insertLivre(book);
+        close();
+        //context.deleteDatabase(NOM_BDD);
     }
 
     public void open(){

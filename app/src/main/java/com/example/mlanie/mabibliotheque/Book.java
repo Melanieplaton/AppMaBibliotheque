@@ -13,7 +13,7 @@ public class Book {
 
     public final String bookIdentifier = "BOOK_ID";
 
-    public Book(){}
+    //public Book(){}
 
     public Book(String bookTitle, String authorName, int publishedYear) {
         this.bookTitle = bookTitle;

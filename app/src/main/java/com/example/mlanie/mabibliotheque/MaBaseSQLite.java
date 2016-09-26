@@ -2,6 +2,7 @@ package com.example.mlanie.mabibliotheque;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -19,7 +20,7 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
     private static final String COLONNE_NOM = "Nom_Auteur";
     private static final String COLONNE_ANNEE = "Annee_Publication";
 
-    private static final String CREATE_BDD = "CREATE TABLE " + TABLE_LIVRE+ " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER );";
+    private static final String CREATE_BDD = "CREATE TABLE " + TABLE_LIVRE + " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER );";
 
     public MaBaseSQLite(Context context) {
         super(context, NOM_BDD, null, VERSION_BDD);
@@ -29,6 +30,7 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         updateMyDatabase(db,0,VERSION_BDD);
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -81,5 +83,9 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
 
     public static String getColonneAnnee() {
         return COLONNE_ANNEE;
+    }
+
+    public static String getCreateBdd() {
+        return CREATE_BDD;
     }
 }

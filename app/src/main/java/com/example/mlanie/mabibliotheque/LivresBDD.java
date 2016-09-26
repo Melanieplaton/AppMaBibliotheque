@@ -102,4 +102,4 @@ import android.database.sqlite.SQLiteDatabase;
         return VERSION_BDD;
     }
 
-}
+}*/

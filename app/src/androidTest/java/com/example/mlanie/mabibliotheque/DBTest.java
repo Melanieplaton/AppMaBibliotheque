@@ -6,8 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 import android.util.Log;
 
-import org.junit.Test;
-
 
 /**
  * Created by Mélanie on 09/09/2016.
@@ -20,13 +18,13 @@ public class DBTest extends AndroidTestCase {
     private static int bookYear;
     private static long bookDBAssignId;
 
-    @Test
+
     public void testDropDB(){
         assertFalse(mContext.deleteDatabase(MaBaseSQLite.getNomBdd()));
-        Log.e("tesDropBD", "pass");
+        Log.e("testDropBD", "pass");
     }
 
-    @Test
+
     public void testCreateDB(){
         MaBaseSQLite maBaseSQLite = new MaBaseSQLite(mContext);
         SQLiteDatabase db = maBaseSQLite.getWritableDatabase();
@@ -35,7 +33,7 @@ public class DBTest extends AndroidTestCase {
         Log.e("testCreateDB", "pass");
     }
 
-    @Test
+
     public void testInsertData(){
         MaBaseSQLite maBaseSQLite = new MaBaseSQLite(mContext);
         SQLiteDatabase db = maBaseSQLite.getWritableDatabase();
@@ -53,7 +51,7 @@ public class DBTest extends AndroidTestCase {
 
     }
 
-    @Test
+
     public void testIsDataCorrectInDB(){
         MaBaseSQLite maBaseSQLite = new MaBaseSQLite(mContext);
         SQLiteDatabase db = maBaseSQLite.getWritableDatabase();

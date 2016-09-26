@@ -56,9 +56,9 @@ public class BookRegistration extends AppCompatActivity {
         Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee);
 
         MaBaseSQLite livresBDD = new MaBaseSQLite(this);
-        livresBDD.getWritableDatabase();
+        db = livresBDD.getWritableDatabase();
         livresBDD.insertLivre(db, book);
-        //livresBDD.close();
+        livresBDD.close();
 
         Intent returnList = new Intent (this, MainActivity.class);
         this.startActivity(returnList);

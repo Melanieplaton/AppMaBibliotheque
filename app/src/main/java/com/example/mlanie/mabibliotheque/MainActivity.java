@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
             db = maBaseHelper.getWritableDatabase();
             cursor = db.query(MaBaseSQLite.getTableLivre(),
-                    new String [] {MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
+                    new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
                     null, null, null, null, null);
 
 
@@ -47,9 +47,6 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
 
             liste.setAdapter(listAdapter);
-            onDestroy();
-
-
 
 
         }catch (SQLiteException e){
@@ -66,13 +63,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
-    @Override
-    protected void onDestroy() {
+   @Override
+   protected void onDestroy() {
         super.onDestroy();
         cursor.close();
         db.close();
     }
-
 
 
     public void ChangerDePagePourCreerUneFicheDeLivre (View button){

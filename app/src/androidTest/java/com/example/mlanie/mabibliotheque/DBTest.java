@@ -19,8 +19,11 @@ public class DBTest extends AndroidTestCase {
     private static long bookDBAssignId;
 
 
+
     public void testDropDB(){
-        assertFalse(mContext.deleteDatabase(MaBaseSQLite.getNomBdd()));
+        MaBaseSQLite maBaseSQLite = new MaBaseSQLite(mContext);
+        SQLiteDatabase db = maBaseSQLite.getWritableDatabase();
+        assertTrue(mContext.deleteDatabase(MaBaseSQLite.getNomBdd()));
         Log.e("testDropBD", "pass");
     }
 

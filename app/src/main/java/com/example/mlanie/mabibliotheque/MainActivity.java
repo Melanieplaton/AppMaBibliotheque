@@ -14,7 +14,7 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
+public class MainActivity extends AppCompatActivity {
 
     //Bundle bundle;
     //String maValeur;
@@ -55,7 +55,17 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             toast.show();
         }
 
-
+        AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                if (position == 0){
+                    Intent intent = new Intent(MainActivity.this,Book_Display.class);
+                    intent.putExtra("BookID", position);
+                    startActivity(intent);
+                }
+            }
+        };
+        liste.setOnItemClickListener(itemClickListener);
         //ListView liste = (ListView)findViewById(R.id.listView);
         //ArrayAdapter<Book>adapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_2, getListItems(bookList));
         //BookAdapter bookAdapter = new BookAdapter(this,getListItems(bookList));
@@ -85,13 +95,13 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     }*/
 
 
-    @Override
+    /*@Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent onItemClick = new Intent(this,Book_Display.class);
-        onItemClick.putExtra("BookID", i);
-        this.startActivity(onItemClick);
+        Intent onClickItem = new Intent(this,Book_Display.class);
+        onClickItem.putExtra("BookID", i);
+        this.startActivity(onClickItem);
 
-    }
+    }*/
 
     //public ArrayList<Book> getBookList() {
         //return bookList;

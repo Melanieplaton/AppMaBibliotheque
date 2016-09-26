@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 public class Book_Display extends AppCompatActivity {
 
-
+//page qui affiche les details d'un livre
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,10 +23,10 @@ public class Book_Display extends AppCompatActivity {
         TextView anneeParution = (TextView) findViewById(R.id.display_annee);
 
         try{
-            LivresBDD maBaseHelper = new LivresBDD(this);
+            MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
             SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
-            Cursor cursor = maBaseSQLite.query(LivresBDD.getTableLivre(), new String [] {LivresBDD.getColonneId(), LivresBDD.getCOLONNE_Titre(), LivresBDD.getColonneNom()},
-                    LivresBDD.getColonneId()+" = " +listPosition, null, null, null, null);
+            Cursor cursor = maBaseSQLite.query(MaBaseSQLite.getTableLivre(), new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom()},
+                    MaBaseSQLite.getColonneId()+" = " +listPosition, null, null, null, null);
 
             if (cursor.moveToFirst()){
                 nomAuteur.setText(cursor.getString(2));

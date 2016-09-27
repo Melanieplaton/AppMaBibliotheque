@@ -16,22 +16,25 @@ public class Book_Display extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book__display);
 
-        int listPosition= getIntent().getExtras().getInt("BookId");
+        int listPosition= (Integer)getIntent().getExtras().get("BookID");
 
         TextView titre = (TextView) findViewById(R.id.display_titre);
         TextView nomAuteur = (TextView) findViewById(R.id.display_nom);
         TextView anneeParution = (TextView) findViewById(R.id.display_annee);
 
+
+
         try{
             MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
             SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
-            Cursor cursor = maBaseSQLite.query(MaBaseSQLite.getTableLivre(), new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom()},
-                    MaBaseSQLite.getColonneId()+" = ? ", new String [] {Integer.toString(listPosition)}, null, null, null);
+            Cursor cursor = maBaseSQLite.query(maBaseHelper.getTableLivre(), new String [] {maBaseHelper.getColonneId(), maBaseHelper.getCOLONNE_Titre(), maBaseHelper.getColonneNom(), maBaseHelper.getColonneAnnee()},
+                    maBaseHelper.getColonneId()+" = ? ", new String [] {Integer.toString(listPosition)}, null, null, null);
 
             if (cursor.moveToFirst()){
                 nomAuteur.setText(cursor.getString(2));
                 titre.setText(cursor.getString(1));
-                anneeParution.setText(cursor.getInt(3));
+                anneeParution.setText(Integer.toString(cursor.getInt(3)));
+
             }// a faire avec les autres attributs de la classe book
             cursor.close();
             maBaseSQLite.close();

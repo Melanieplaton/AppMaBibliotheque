@@ -58,9 +58,9 @@ public class MainActivity extends AppCompatActivity {
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //if (position == 0){
+                //if (position == 0){ //Empêche de cliquer sur la deuxième position
                     Intent intent = new Intent(MainActivity.this,Book_Display.class);
-                    intent.putExtra("BookID", id);
+                    intent.putExtra("BookID", (int) id);
                     startActivity(intent);
                 //}
             }

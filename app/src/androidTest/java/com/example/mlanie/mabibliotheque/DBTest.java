@@ -48,13 +48,13 @@ public class DBTest extends AndroidTestCase {
         contentValues.put(MaBaseSQLite.getCOLONNE_Titre(),bookTitle);
         contentValues.put(MaBaseSQLite.getColonneNom(),bookAuthor);
         contentValues.put(MaBaseSQLite.getColonneAnnee(),bookYear);
-        bookDBAssignId = db.insert(MaBaseSQLite.getNomBdd(), null, contentValues);
+        bookDBAssignId = db.insert(MaBaseSQLite.getTableLivre(), null, contentValues);
         assertTrue(bookDBAssignId != -1);
         Log.e("testInsertData", "pass" + bookDBAssignId);
 
     }
 
-
+//Test pour récupérer les id
     public void testIsDataCorrectInDB(){
         MaBaseSQLite maBaseSQLite = new MaBaseSQLite(mContext);
         SQLiteDatabase db = maBaseSQLite.getWritableDatabase();

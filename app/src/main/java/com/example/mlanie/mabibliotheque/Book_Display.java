@@ -26,7 +26,7 @@ public class Book_Display extends AppCompatActivity {
             MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
             SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
             Cursor cursor = maBaseSQLite.query(MaBaseSQLite.getTableLivre(), new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom()},
-                    MaBaseSQLite.getColonneId()+" = " +listPosition, null, null, null, null);
+                    MaBaseSQLite.getColonneId()+" = ? ", new String [] {Integer.toString(listPosition)}, null, null, null);
 
             if (cursor.moveToFirst()){
                 nomAuteur.setText(cursor.getString(2));

@@ -16,9 +16,6 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    //Bundle bundle;
-    //String maValeur;
-    //public ArrayList<Book> bookList = new ArrayList<Book>();
 
     private Cursor cursor;
     private SQLiteDatabase db;
@@ -29,25 +26,19 @@ public class MainActivity extends AppCompatActivity {
 
         ListView liste = (ListView)findViewById(R.id.listView);
 
-        //maValeur = savedInstanceState.getString("key");
-
-        //this.bundle = savedInstanceState;
-
         try{
             MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
             db = maBaseHelper.getWritableDatabase();
             cursor = db.query(MaBaseSQLite.getTableLivre(),
                     new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
-                    null, null, null, null, null);
+                    null, null, null, null, MaBaseSQLite.getColonneId()+" DESC");
 
 
             CursorAdapter listAdapter = new SimpleCursorAdapter(this, R.layout.list_item_layout,cursor,
                     new String [] {MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee()},
                     new int [] {R.id.liste_titre, R.id.liste_nom, R.id.liste_annee}, 0);
 
-
             liste.setAdapter(listAdapter);
-
 
         }catch (SQLiteException e){
             e.printStackTrace();
@@ -66,11 +57,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         liste.setOnItemClickListener(itemClickListener);
-        //ListView liste = (ListView)findViewById(R.id.listView);
-        //ArrayAdapter<Book>adapter = new ArrayAdapter<Book>(this, android.R.layout.simple_list_item_2, getListItems(bookList));
-        //BookAdapter bookAdapter = new BookAdapter(this,getListItems(bookList));
-        //liste.setAdapter(bookAdapter);
-
     }
 
    @Override
@@ -78,38 +64,12 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         cursor.close();
         db.close();
-    }
-
+   }
 
     public void ChangerDePagePourCreerUneFicheDeLivre (View button){
-        Intent CreateNewBook = new Intent(this, BookRegistration.class);
-        this.startActivity(CreateNewBook);
-        //setContentView(R.layout.activity_book_registration);
+        Intent createNewBook = new Intent(this, BookRegistration.class);
+        createNewBook.putExtra("Book to modify", -1);
+        this.startActivity(createNewBook);
     }
-
-   /* public ArrayList<Book> getListItems(ArrayList<Book> listBook){
-        listBook.add(new Book("Titre1", "Auteur1",2001));
-        listBook.add(new Book("Titre2", "Auteur2",2002));
-        listBook.add(new Book("Titre3", "Auteur3",2003));
-        return listBook;
-    }*/
-
-
-    /*@Override
-    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Intent onClickItem = new Intent(this,Book_Display.class);
-        onClickItem.putExtra("BookID", i);
-        this.startActivity(onClickItem);
-
-    }*/
-
-    //public ArrayList<Book> getBookList() {
-        //return bookList;
-    //}
-
-    //public void setBookList(ArrayList<Book> bookList) {
-        //this.bookList = bookList;
-    //}
-
 
 }

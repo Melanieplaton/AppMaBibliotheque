@@ -12,13 +12,20 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class MaBaseSQLite extends SQLiteOpenHelper {
 
     private static final String NOM_BDD = "mabibliotheque.db";
-    private static final int VERSION_BDD = 1;
+    private static final int VERSION_BDD = 2;
 
     private static final String TABLE_LIVRE = "table_livre";
     private static final String COLONNE_ID = "_id";
     private static final String COLONNE_Titre = "Titre";
     private static final String COLONNE_NOM = "Nom_Auteur";
     private static final String COLONNE_ANNEE = "Annee_Publication";
+    private static final String COLUMN_FIRSTNAME= "Author_First_Name";
+    private static final String COLUMN_EDITIONHOME="Edition_home";
+    private static final String COLUMN_PAGES = "Page_Number";
+    private static final String COLUMN_TYPE = "Book_Type";
+    private static final String COLUMN_SUMMARY = "Book_Summary";
+    private static final String COLUMN_REVIEW = "Book_Review";
+    private static final String COLUMN_RATING = "Rating";
 
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_LIVRE + " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER );";
 
@@ -43,6 +50,13 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         values.put(COLONNE_Titre, book.getBookTitle());
         values.put(COLONNE_NOM, book.getAuthorName());
         values.put(COLONNE_ANNEE, book.getPublishedYear());
+        values.put(COLUMN_FIRSTNAME, book.getAuthorFirstName());
+        values.put(COLUMN_EDITIONHOME, book.getHomeEdition());
+        values.put(COLUMN_PAGES, book.getPages());
+        values.put(COLUMN_REVIEW, book.getReview());
+        values.put(COLUMN_SUMMARY, book.getBookSummary());
+        values.put(COLUMN_RATING, book.getRating());
+        values.put(COLUMN_TYPE, book.getBookType());
         db.insert(TABLE_LIVRE, null, values);
     }
 
@@ -50,11 +64,43 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
         if (oldVersion<=1){
             //On créé la table à partir de la requête écrite dans la variable CREATE_BDD
             db.execSQL(CREATE_BDD);
-            Book book1 = new Book("titre1", "auteur1", 2015);
-            Book book2 = new Book("titre2", "auteur2", 2014);
-            insertLivre(db, book1);
-            insertLivre(db, book2);
+
         }
+        if (oldVersion<2){
+            db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LIVRE);
+            db.execSQL("CREATE TABLE "+TABLE_LIVRE+ " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER, "+ COLUMN_FIRSTNAME+ " TEXT, "+COLUMN_EDITIONHOME+ " TEXT, " +COLUMN_PAGES+ " INTEGER, "+COLUMN_RATING+ " TEXT, "+COLUMN_REVIEW+ " TEXT, "+COLUMN_SUMMARY+" TEXT, "+COLUMN_TYPE+ " TEXT);");
+            //Book book1 = new Book("titre1", "auteur1", 2015, "Prenom1", "", 100, (float) 3.0 , "Bien", "","Policier");
+            //Book book2 = new Book("titre2", "auteur2", 2014, "Prenom2", "", 200, (float) 4.0 , "TBien", "","Thriller");
+            //insertLivre(db, book1);
+            //insertLivre(db, book2);
+
+            Book book3 = new Book ("Le passage","Cronin", 2010, "Justin", "Maison", 900, (float) 4.0, "Très Bien", "Viruls", "Thriller");
+            insertLivre(db, book3);
+        }
+
+    }
+
+    public int deleteItemInDatabase (SQLiteDatabase db, int bookId ){
+        int nbDeletedRow = db.delete(getTableLivre(), getColonneId() + " = "+ bookId, null);
+        return nbDeletedRow;
+
+    }
+
+    public int updateBook (SQLiteDatabase db, Book book, int bookId){
+        ContentValues values = new ContentValues();
+        values.put(COLONNE_Titre, book.getBookTitle());
+        values.put(COLONNE_NOM, book.getAuthorName());
+        values.put(COLONNE_ANNEE, book.getPublishedYear());
+        values.put(COLUMN_FIRSTNAME, book.getAuthorFirstName());
+        values.put(COLUMN_EDITIONHOME, book.getHomeEdition());
+        values.put(COLUMN_PAGES, book.getPages());
+        values.put(COLUMN_REVIEW, book.getReview());
+        values.put(COLUMN_SUMMARY, book.getBookSummary());
+        values.put(COLUMN_RATING, book.getRating());
+        values.put(COLUMN_TYPE, book.getBookType());
+        int nbUpdatedRow = db.update(TABLE_LIVRE, values, getColonneId() + " = "+ bookId, null);
+        return nbUpdatedRow;
+
     }
 
     public static String getNomBdd() {
@@ -87,5 +133,33 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
 
     public static String getCreateBdd() {
         return CREATE_BDD;
+    }
+
+    public static String getColumnFirstname() {
+        return COLUMN_FIRSTNAME;
+    }
+
+    public static String getColumnEditionhome() {
+        return COLUMN_EDITIONHOME;
+    }
+
+    public static String getColumnPages() {
+        return COLUMN_PAGES;
+    }
+
+    public static String getColumnType() {
+        return COLUMN_TYPE;
+    }
+
+    public static String getColumnSummary() {
+        return COLUMN_SUMMARY;
+    }
+
+    public static String getColumnReview() {
+        return COLUMN_REVIEW;
+    }
+
+    public static String getColumnRating() {
+        return COLUMN_RATING;
     }
 }

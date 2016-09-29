@@ -1,10 +1,12 @@
 package com.example.mlanie.mabibliotheque;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.RatingBar;
@@ -63,15 +65,31 @@ public class Book_Display extends AppCompatActivity {
     }
 
     public void onClickedDeleteButton (View button){
-        SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
-        int numberDeletedRow = maBaseHelper.deleteItemInDatabase(maBaseSQLite, listPosition);
-        if (numberDeletedRow == 1){
-            Toast toast = Toast.makeText(this, "Livre supprimé", Toast.LENGTH_SHORT);
-            toast.show();
-        }
-        maBaseSQLite.close();
-        Intent goBackToList = new Intent (this, MainActivity.class);
-        this.startActivity(goBackToList);
+        AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Etes-vous sûr de vouloir supprimer ce livre?");
+        alertDialogBuilder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
+                int numberDeletedRow = maBaseHelper.deleteItemInDatabase(maBaseSQLite, listPosition);
+                if (numberDeletedRow == 1){
+                    Toast toast = Toast.makeText(Book_Display.this, "Livre supprimé", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                maBaseSQLite.close();
+                Intent goBackToList = new Intent (Book_Display.this, MainActivity.class);
+                Book_Display.this.startActivity(goBackToList);
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+               dialog.cancel();
+            }
+        });
+       AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 
     public void onClickedModifyButton (View button){

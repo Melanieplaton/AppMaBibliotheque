@@ -85,24 +85,29 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
             pages =  Integer.valueOf(pagesToRecord.toString());
         }
 
-        Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee, authorFirstNameToRecord, homeEditiontoRecord, pages, ratingToRecord, reviewToRecord, summaryToRecord, typeToRecord);
+        if ((titreAEnregistrer.equals("")) || (nomAuteurAEnregistrer.equals(""))){
 
-        MaBaseSQLite livresBDD = new MaBaseSQLite(this);
-        db = livresBDD.getWritableDatabase();
-        if(idBookToModify == -1){
-            livresBDD.insertLivre(db, book);
-            Toast toast = Toast.makeText(this, "Livre enregistré", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, "Impossible à enregistrer, titre et nom de l'auteur à remplir", Toast.LENGTH_SHORT);
             toast.show();
         } else {
-            livresBDD.updateBook(db, book, idBookToModify);
-            Toast toast = Toast.makeText(this, "Livre modifié", Toast.LENGTH_SHORT);
-            toast.show();
+            Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee, authorFirstNameToRecord, homeEditiontoRecord, pages, ratingToRecord, reviewToRecord, summaryToRecord, typeToRecord);
+
+            MaBaseSQLite livresBDD = new MaBaseSQLite(this);
+            db = livresBDD.getWritableDatabase();
+            if (idBookToModify == -1) {
+                livresBDD.insertLivre(db, book);
+                Toast toast = Toast.makeText(this, "Livre enregistré", Toast.LENGTH_SHORT);
+                toast.show();
+            } else {
+                livresBDD.updateBook(db, book, idBookToModify);
+                Toast toast = Toast.makeText(this, "Livre modifié", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+            livresBDD.close();
+
+            Intent returnList = new Intent(this, MainActivity.class);
+            this.startActivity(returnList);
         }
-        livresBDD.close();
-
-        Intent returnList = new Intent (this, MainActivity.class);
-        this.startActivity(returnList);
-
     }
 
 

@@ -2,7 +2,6 @@ package com.example.mlanie.mabibliotheque;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -27,6 +26,7 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
     private static final String COLUMN_REVIEW = "Book_Review";
     private static final String COLUMN_RATING = "Rating";
 
+    //creation of the first version of the DB with only 3 columns
     private static final String CREATE_BDD = "CREATE TABLE " + TABLE_LIVRE + " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER );";
 
     public MaBaseSQLite(Context context) {
@@ -45,7 +45,7 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
 
     }
 
-    public void insertLivre (SQLiteDatabase db, Book book){
+    public void insertBook(SQLiteDatabase db, Book book){
         ContentValues values = new ContentValues();
         values.put(COLONNE_Titre, book.getBookTitle());
         values.put(COLONNE_NOM, book.getAuthorName());
@@ -62,20 +62,18 @@ public class MaBaseSQLite extends SQLiteOpenHelper {
 
     public void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion){
         if (oldVersion<=1){
-            //On créé la table à partir de la requête écrite dans la variable CREATE_BDD
+            //creation of the DB
             db.execSQL(CREATE_BDD);
 
         }
         if (oldVersion<2){
+            //update of the database with all the attributes of a book
             db.execSQL("DROP TABLE IF EXISTS "+ TABLE_LIVRE);
             db.execSQL("CREATE TABLE "+TABLE_LIVRE+ " (" + COLONNE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " + COLONNE_Titre + " TEXT NOT NULL, " + COLONNE_NOM + " TEXT NOT NULL, " + COLONNE_ANNEE + " INTEGER, "+ COLUMN_FIRSTNAME+ " TEXT, "+COLUMN_EDITIONHOME+ " TEXT, " +COLUMN_PAGES+ " INTEGER, "+COLUMN_RATING+ " TEXT, "+COLUMN_REVIEW+ " TEXT, "+COLUMN_SUMMARY+" TEXT, "+COLUMN_TYPE+ " TEXT);");
-            //Book book1 = new Book("titre1", "auteur1", 2015, "Prenom1", "", 100, (float) 3.0 , "Bien", "","Policier");
-            //Book book2 = new Book("titre2", "auteur2", 2014, "Prenom2", "", 200, (float) 4.0 , "TBien", "","Thriller");
-            //insertLivre(db, book1);
-            //insertLivre(db, book2);
 
+            //example of book
             Book book3 = new Book ("Le passage","Cronin", 2010, "Justin", "Maison", 900, (float) 4.0, "Très Bien", "Viruls", "Thriller");
-            insertLivre(db, book3);
+            insertBook(db, book3);
         }
 
     }

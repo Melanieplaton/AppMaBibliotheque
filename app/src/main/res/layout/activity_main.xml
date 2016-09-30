@@ -8,12 +8,14 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:id="@+id/liste_main"
+    android:background="@drawable/openbook"
     tools:context="com.example.mlanie.mabibliotheque.MainActivity">
 
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textStyle="bold"
         android:text="@string/main_button_chain"
@@ -21,7 +23,9 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="false"
-        android:onClick="ChangerDePagePourCreerUneFicheDeLivre"/>
+        android:background="@color/colorPrimary"
+        android:padding="10dp"
+        android:onClick="changePageToCreateANewBook"/>
 
     <ListView
         android:layout_width="match_parent"

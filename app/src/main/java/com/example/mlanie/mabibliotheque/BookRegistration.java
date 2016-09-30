@@ -30,7 +30,7 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//Création des actions du spinner
+        //set spinner
         String[] arraySpinner;
         setContentView(R.layout.content_book_registration);
         arraySpinner = new String[]{
@@ -42,10 +42,13 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
                 simple_spinner_item, arraySpinner);
         s.setAdapter(adapter);
 
+
         idBookToModify = (int) getIntent().getExtras().get("Book to modify");
         if (idBookToModify != -1){
             modifyBook(idBookToModify);
         }
+        // if idBooKToModify = -1, creation of a new book
+        // if idBookToModify != -1, modification of a book, get the book data from the database
     }
 
     public void saveTheBook (View Button){
@@ -58,7 +61,7 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
         RatingBar ratingFromUser = (RatingBar) findViewById(R.id.ratingBar);
         EditText reviewFromUser = (EditText) findViewById(R.id.Writing_Your_Opinion);
         EditText summaryFromUser = (EditText) findViewById(R.id.Writing_The_Summary);
-        Spinner typeFromUser = (Spinner) findViewById(R.id.spinnerGenre);
+
 
 
         String titreAEnregistrer = titreFromUser.getText().toString();
@@ -92,25 +95,26 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
         } else {
             Book book = new Book(titreAEnregistrer, nomAuteurAEnregistrer, annee, authorFirstNameToRecord, homeEditiontoRecord, pages, ratingToRecord, reviewToRecord, summaryToRecord, typeToRecord);
 
-            MaBaseSQLite livresBDD = new MaBaseSQLite(this);
-            db = livresBDD.getWritableDatabase();
+            MaBaseSQLite bookBDD = new MaBaseSQLite(this);
+            db =  bookBDD.getWritableDatabase();
+
             if (idBookToModify == -1) {
-                livresBDD.insertLivre(db, book);
+                 bookBDD.insertBook(db, book);
                 Toast toast = Toast.makeText(this, "Livre enregistré", Toast.LENGTH_SHORT);
                 toast.show();
             } else {
-                livresBDD.updateBook(db, book, idBookToModify);
+                 bookBDD.updateBook(db, book, idBookToModify);
                 Toast toast = Toast.makeText(this, "Livre modifié", Toast.LENGTH_SHORT);
                 toast.show();
             }
-            livresBDD.close();
+             bookBDD.close();
 
             Intent returnList = new Intent(this, MainActivity.class);
             this.startActivity(returnList);
         }
     }
 
-
+    //get the selected item in spinner
     public void onItemSelected (AdapterView<?> parent, View view, int pos, long id){
             typeToRecord = parent.getItemAtPosition(pos).toString();
         }
@@ -119,11 +123,14 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
         typeToRecord = "";
     }
 
+    //display the recorded data of the book to modify
     public void modifyBook(int bookIdToModify){
-        MaBaseSQLite livresBDD = new MaBaseSQLite(this);
-        db =livresBDD.getWritableDatabase();
+        MaBaseSQLite bookBDD = new MaBaseSQLite(this);
+        db =bookBDD.getWritableDatabase();
+
         Cursor cursor = db.query(MaBaseSQLite.getTableLivre(), new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee(),MaBaseSQLite.getColumnFirstname(), MaBaseSQLite.getColumnEditionhome(), MaBaseSQLite.getColumnPages(), MaBaseSQLite.getColumnRating(), MaBaseSQLite.getColumnReview(), MaBaseSQLite.getColumnSummary(), MaBaseSQLite.getColumnType()},
                 MaBaseSQLite.getColonneId()+" = ? ", new String [] {Integer.toString(bookIdToModify)}, null, null, null);
+
         if (cursor.moveToFirst()){
             EditText titreFromUser = (EditText) findViewById(R.id.Writing_Book_Name);
             EditText nomAuteurFromUser = (EditText) findViewById(R.id.Writing_Author_Name);
@@ -134,7 +141,7 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
             RatingBar ratingFromUser = (RatingBar) findViewById(R.id.ratingBar);
             EditText reviewFromUser = (EditText) findViewById(R.id.Writing_Your_Opinion);
             EditText summaryFromUser = (EditText) findViewById(R.id.Writing_The_Summary);
-            Spinner typeFromUser = (Spinner) findViewById(R.id.spinnerGenre);
+
 
             titreFromUser.setText(cursor.getString(1));
             nomAuteurFromUser.setText(cursor.getString(2)) ;
@@ -147,7 +154,7 @@ public class BookRegistration extends AppCompatActivity implements AdapterView.O
             summaryFromUser.setText(cursor.getString(9));
         }
         cursor.close();
-        livresBDD.close();
+        bookBDD.close();
     }
 
 }

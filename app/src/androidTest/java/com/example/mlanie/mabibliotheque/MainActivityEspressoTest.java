@@ -46,6 +46,7 @@ public class MainActivityEspressoTest {
 
     @Test
     public void testGoToBookDetails(){
+        //test when click on the first item of the list
         onView(withId(R.id.liste_main));
         onData(anything()).atPosition(1);
         onData(anything()).perform(click());

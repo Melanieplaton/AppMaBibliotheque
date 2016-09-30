@@ -4,7 +4,7 @@
     <string name="main_button_chain">Nouveau Livre</string>
     <string name="Book_Name">Titre du Livre*</string>
     <string name="Writing_Book_Name">Ecrire le titre du livre</string>
-    <string name="Author_Name">Nom de l\'auteur*</string>
+    <string name="Author_Name">Nom* et Prénom de l\'auteur</string>
     <string name="Writing_Author_Name">Nom de l\'auteur</string>
     <string name="Writing_Author_First_Name">Prénom de l\'auteur</string>
     <string name="Published_Year">Année de publication</string>

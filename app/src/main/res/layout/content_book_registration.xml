@@ -62,7 +62,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Nom"
             android:ems="10"
             android:id="@+id/Writing_Author_Name"
             android:layout_below="@+id/textView2"
@@ -75,7 +74,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
-            android:text="Prénom"
             android:ems="10"
             android:id="@+id/Writing_Author_First_Name"
             android:layout_below="@+id/textView2"
@@ -227,18 +225,23 @@
             android:id="@+id/ratingBar"
             android:layout_below="@+id/Your_Note"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"/>
-
+            android:layout_alignParentStart="true"
+            android:theme="@style/RatingBar"/>
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Save Book"
+            android:textColor="@android:color/black"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textStyle="bold"
+            android:text="Enregistrer"
             android:id="@+id/saveBook"
             android:layout_below="@+id/ratingBar"
             android:layout_alignLeft="@+id/spinnerGenre"
             android:layout_alignStart="@+id/spinnerGenre"
-            android:onClick="saveTheBook"/>
+            android:onClick="saveTheBook"
+            android:padding="10dp"
+            android:background="@color/colorPrimary"/>
 
 
     </RelativeLayout>

@@ -16,9 +16,9 @@ import android.widget.Toast;
 public class Book_Display extends AppCompatActivity {
 
     int listPosition;
-    MaBaseSQLite maBaseHelper = new MaBaseSQLite(this);
+    MaBaseSQLite myBaseHelper = new MaBaseSQLite(this);
 
-//page qui affiche les details d'un livre
+    //display book details
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,7 @@ public class Book_Display extends AppCompatActivity {
             SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
             Cursor cursor = maBaseSQLite.query(MaBaseSQLite.getTableLivre(), new String [] {MaBaseSQLite.getColonneId(), MaBaseSQLite.getCOLONNE_Titre(), MaBaseSQLite.getColonneNom(), MaBaseSQLite.getColonneAnnee(), MaBaseSQLite.getColumnFirstname(), MaBaseSQLite.getColumnEditionhome(), MaBaseSQLite.getColumnPages(), MaBaseSQLite.getColumnRating(), MaBaseSQLite.getColumnReview(), MaBaseSQLite.getColumnSummary(), MaBaseSQLite.getColumnType()},
                     MaBaseSQLite.getColonneId()+" = ? ", new String [] {Integer.toString(listPosition)}, null, null, null);
-
+            //get data from database with the book ID and display it
             if (cursor.moveToFirst()){
                 nomAuteur.setText(cursor.getString(2));
                 titre.setText(cursor.getString(1));
@@ -63,15 +63,16 @@ public class Book_Display extends AppCompatActivity {
             toast.show();
         }
     }
-
+    // dialog box to check before deleting book from database
     public void onClickedDeleteButton (View button){
         AlertDialog.Builder alertDialogBuilder= new AlertDialog.Builder(this);
         alertDialogBuilder.setMessage("Etes-vous sûr de vouloir supprimer ce livre?");
         alertDialogBuilder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                SQLiteDatabase maBaseSQLite = maBaseHelper.getReadableDatabase();
-                int numberDeletedRow = maBaseHelper.deleteItemInDatabase(maBaseSQLite, listPosition);
+                //delete book from database
+                SQLiteDatabase maBaseSQLite = myBaseHelper.getReadableDatabase();
+                int numberDeletedRow = myBaseHelper.deleteItemInDatabase(maBaseSQLite, listPosition);
                 if (numberDeletedRow == 1){
                     Toast toast = Toast.makeText(Book_Display.this, "Livre supprimé", Toast.LENGTH_SHORT);
                     toast.show();
@@ -91,7 +92,7 @@ public class Book_Display extends AppCompatActivity {
        AlertDialog alertDialog = alertDialogBuilder.create();
         alertDialog.show();
     }
-
+    // go to registration page
     public void onClickedModifyButton (View button){
         Intent goBackToRegistrationPage = new Intent (this, BookRegistration.class);
         goBackToRegistrationPage.putExtra("Book to modify", listPosition);

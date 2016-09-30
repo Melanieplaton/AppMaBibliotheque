@@ -24,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //get all data from the database and display it in a list, from the latest to the oldest
         ListView liste = (ListView)findViewById(R.id.listView);
 
         try{
@@ -46,14 +47,13 @@ public class MainActivity extends AppCompatActivity {
             toast.show();
         }
 
+        //set intent when user clik on a list item
         AdapterView.OnItemClickListener itemClickListener = new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                //if (position == 0){ //Empêche de cliquer sur la deuxième position
                     Intent intent = new Intent(MainActivity.this,Book_Display.class);
                     intent.putExtra("BookID", (int) id);
                     startActivity(intent);
-                //}
             }
         };
         liste.setOnItemClickListener(itemClickListener);
@@ -66,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
         db.close();
    }
 
-    public void ChangerDePagePourCreerUneFicheDeLivre (View button){
+    // when user click on button, go to registration page. id=-1 because new book
+    public void changePageToCreateANewBook(View button){
         Intent createNewBook = new Intent(this, BookRegistration.class);
         createNewBook.putExtra("Book to modify", -1);
         this.startActivity(createNewBook);
